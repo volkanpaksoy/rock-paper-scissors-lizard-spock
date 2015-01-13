@@ -1,12 +1,35 @@
 ﻿module Game
 
 type Move = 
-    | Unknown
     | Rock
-    | Paper 
+    | Paper
     | Scissors
     | Lizard
     | Spock
+
+    static member (-) (x, y) =
+        match x, y with
+        | Move.Scissors, Move.Paper -> 1
+        | Move.Scissors, Move.Lizard -> 1
+        | Move.Scissors, Move.Rock -> 2
+        | Move.Scissors, Move.Spock -> 2
+        | Move.Lizard, Move.Paper -> 1
+        | Move.Lizard, Move.Rock -> 2
+        | Move.Lizard, Move.Scissors -> 2
+        | Move.Lizard, Move.Spock -> 1
+        | Move.Paper, Move.Lizard -> 1
+        | Move.Paper, Move.Rock -> 2
+        | Move.Paper, Move.Scissors -> 2
+        | Move.Paper, Move.Spock -> 1
+        | Move.Spock, Move.Paper -> 2
+        | Move.Spock, Move.Rock -> 1
+        | Move.Spock, Move.Scissors -> 1
+        | Move.Spock, Move.Lizard -> 2
+        | Move.Rock, Move.Paper -> 2
+        | Move.Rock, Move.Spock -> 2
+        | Move.Rock, Move.Scissors -> 1
+        | Move.Rock, Move.Lizard -> 1
+        | (x, y) when (x = y) -> 0
 
 let GetRandomMove n = 
     let rnd = System.Random();
@@ -18,10 +41,8 @@ let GetRandomMove n =
         | 2 -> Move.Scissors
         | 3 -> Move.Lizard
         | 4 -> Move.Spock
-        | _ -> Move.Unknown
     ]
     output
-    
 
 let GetRoundOutputText moves =
     match moves with
@@ -37,18 +58,15 @@ let GetRoundOutputText moves =
     | (Move.Rock, Move.Scissors) | (Move.Scissors, Move.Rock) -> "Rock crushes scissors"
     | (x, y) when (x = y) -> "Draw"
     | (_, _) -> "Unknown move pair"
-
     
 let GetMovesFromInput (input : string) =
-    let inputList = Array.toList (input.Split [|' '|])
-
-    let moves = List.map (fun x -> 
-        match x with
+    let inputList = Array.toList (input.Trim().Split [|' '|])
+    let moves = List.map (fun (x: string) -> 
+        match x.ToUpper() with
         | "R" -> Move.Rock
         | "P" -> Move.Paper
         | "S" -> Move.Scissors
         | "L" -> Move.Lizard
-        | "M" -> Move.Spock
-        | _ -> Move.Unknown) inputList
+        | "M" -> Move.Spock ) inputList
     moves
 
