@@ -4,10 +4,31 @@ open System
 [<EntryPoint>]
 let main argv = 
 
-    let mutable playerScore = 0
-    let mutable computerScore = 0
+    let userInput = Console.ReadLine()
+    let newGame = RPSLS(userInput)
+    newGame.RunGame()
+    0        
 
-    let playerMoves = GetMovesFromInput (Console.ReadLine())
+
+
+
+(*
+    try
+        try
+            let newGame = RPSLS(userInput)
+            newGame.RunGame()
+            
+        with
+            _ -> printfn "An error occured"
+   
+    finally    
+        Console.ReadLine()
+*)
+
+
+
+    (*
+    let playerMoves = GetMovesFromInput ()
     let n = playerMoves.Length
     printfn "You played: "
     for i in 0 .. n - 1 do
@@ -29,8 +50,15 @@ let main argv =
         if diff = 1 then playerScore <- playerScore + 1
         elif diff = 2 then computerScore <- computerScore + 1
         printfn "Player: %d \t Computer: %d" playerScore computerScore
+    *)
 
-    let s = Console.ReadLine()
-    printfn "%s" s
+
     
-    0 
+
+
+
+
+(*
+
+
+*)
