@@ -7,6 +7,7 @@ let main argv =
     let userInput = Console.ReadLine()
     let newGame = RPSLS(userInput)
     newGame.RunGame()
+    Console.ReadLine()
     0        
 
 

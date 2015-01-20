@@ -84,15 +84,23 @@ type RPSLS(userInput: string) =
         with get () = computerScore
         and set (value) = computerScore <- value
     member this.PlayerMoves = this.GetMovesFromInput(userInput)
-    member this.ComputerMoves = []
 
     member this.RunGame() = 
         let n = this.PlayerMoves.Length
-        let this.ComputerMoves = this.GetRandomMove n
+        let ComputerMoves = this.GetRandomMove n
         for i in 0 .. n - 1 do
-            printfn  "%s" (this.GetRoundOutputText (this.PlayerMoves.Item(i), this.ComputerMoves.Item(i)))
-            let diff = (int)(this.PlayerMoves.Item(i) - this.ComputerMoves.Item(i))
+            printfn  "Player played %A" (this.PlayerMoves.Item(i))
+            printfn  "Computer played %A" (ComputerMoves.Item(i))
+            printfn  "Result: %s" (this.GetRoundOutputText (this.PlayerMoves.Item(i), ComputerMoves.Item(i)))
+            let diff = (int)(this.PlayerMoves.Item(i) - ComputerMoves.Item(i))
             if diff = 1 then this.PlayerScore <- playerScore + 1
             elif diff = 2 then this.ComputerScore <- computerScore + 1
             printfn "Player: %d \t Computer: %d" this.PlayerScore this.ComputerScore
-       
+            printfn ""
+            
+        printfn ""
+        printfn "-------------------------"
+        printfn "GAME RESULT:"
+        printfn "-------------------------"
+        printfn "Player: %d \t Computer: %d" this.PlayerScore this.ComputerScore
+        printfn "-------------------------"
