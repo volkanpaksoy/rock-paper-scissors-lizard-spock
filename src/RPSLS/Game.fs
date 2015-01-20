@@ -1,5 +1,7 @@
 ﻿module Game
 
+open RandomMoveGenerator
+
 type Move = 
     | Rock
     | Paper
@@ -32,7 +34,7 @@ type Move =
         | (x, y) when (x = y) -> 0
 
 
-type RPSLS(userInput: string) = 
+type RPSLS(userInput: string, moveGenerator: IMoveGenerator) = 
     let mutable playerScore = 0
     let mutable computerScore = 0
 
@@ -75,14 +77,16 @@ type RPSLS(userInput: string) =
         | (Move.Spock, Move.Rock) | (Move.Rock, Move.Spock) -> "Spock vaporizes Rock"
         | (Move.Rock, Move.Scissors) | (Move.Scissors, Move.Rock) -> "Rock crushes scissors"
         | (x, y) when (x = y) -> "Draw"
-        | (_, _) -> "Unknown move pair"
+        | (_, _) -> failwith "Unknown move pair"
 
     member this.PlayerScore 
         with get () = playerScore
         and set (value) = playerScore <- value
+    
     member this.ComputerScore 
         with get () = computerScore
         and set (value) = computerScore <- value
+    
     member this.PlayerMoves = this.GetMovesFromInput(userInput)
 
     member this.RunGame() = 
