@@ -1,42 +1,12 @@
 ﻿module Game
 
-open RandomMoveGenerator
-
-type Move = 
-    | Rock
-    | Paper
-    | Scissors
-    | Lizard
-    | Spock
-
-    static member (-) (x, y) =
-        match x, y with
-        | Move.Scissors, Move.Paper -> 1
-        | Move.Scissors, Move.Lizard -> 1
-        | Move.Scissors, Move.Rock -> 2
-        | Move.Scissors, Move.Spock -> 2
-        | Move.Lizard, Move.Paper -> 1
-        | Move.Lizard, Move.Rock -> 2
-        | Move.Lizard, Move.Scissors -> 2
-        | Move.Lizard, Move.Spock -> 1
-        | Move.Paper, Move.Lizard -> 1
-        | Move.Paper, Move.Rock -> 2
-        | Move.Paper, Move.Scissors -> 2
-        | Move.Paper, Move.Spock -> 1
-        | Move.Spock, Move.Paper -> 2
-        | Move.Spock, Move.Rock -> 1
-        | Move.Spock, Move.Scissors -> 1
-        | Move.Spock, Move.Lizard -> 2
-        | Move.Rock, Move.Paper -> 2
-        | Move.Rock, Move.Spock -> 2
-        | Move.Rock, Move.Scissors -> 1
-        | Move.Rock, Move.Lizard -> 1
-        | (x, y) when (x = y) -> 0
-
+open Move
+open IMoveGenerator
 
 type RPSLS(userInput: string, moveGenerator: IMoveGenerator) = 
     let mutable playerScore = 0
     let mutable computerScore = 0
+    let moveGen = moveGenerator
 
     member this.GetMovesFromInput (input : string) =
         let inputList = Array.toList (input.Trim().Split [|' '|])
@@ -49,20 +19,6 @@ type RPSLS(userInput: string, moveGenerator: IMoveGenerator) =
             | "M" -> Move.Spock 
             | _ -> failwith "Invalid move. Please enter one of the following: R(Rock), P(Paper), S(Scissors), L(Lizard), M(Mr. Spock)") inputList
         moves
-
-    member this.GetRandomMove(n) = 
-        let rnd = System.Random()
-        let output = [ for i in 1 .. n -> 
-            let index = rnd.Next(0, 5)
-            match index with
-            | 0 -> Move.Rock
-            | 1 -> Move.Paper
-            | 2 -> Move.Scissors
-            | 3 -> Move.Lizard
-            | 4 -> Move.Spock
-            | _ -> failwith "Unexpected move"
-        ]
-        output
 
     member this.GetRoundOutputText(moves) =
         match moves with
@@ -91,7 +47,7 @@ type RPSLS(userInput: string, moveGenerator: IMoveGenerator) =
 
     member this.RunGame() = 
         let n = this.PlayerMoves.Length
-        let ComputerMoves = this.GetRandomMove n
+        let ComputerMoves = moveGen.GenerateMove n
         for i in 0 .. n - 1 do
             printfn  "Player played %A" (this.PlayerMoves.Item(i))
             printfn  "Computer played %A" (ComputerMoves.Item(i))

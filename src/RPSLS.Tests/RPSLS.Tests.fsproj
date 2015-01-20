@@ -42,8 +42,16 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeMoveGenerator.fs" />
     <Compile Include="Library1.fs" />
     <None Include="Script.fsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RPSLS\RPSLS.fsproj">
+      <Name>RPSLS</Name>
+      <Project>{28a0eded-961b-4a9e-9f38-6e7f56d699cb}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

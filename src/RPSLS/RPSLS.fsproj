@@ -47,11 +47,12 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game.fs" />
+    <Compile Include="Move.fs" />
     <Compile Include="IMoveGenerator.fs" />
-    <Compile Include="RandomMoveGenerator.fs" />
+    <Compile Include="Game.fs" />
     <None Include="App.config" />
     <Compile Include="Program.fs" />
+    <Compile Include="RandomMoveGenerator.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
