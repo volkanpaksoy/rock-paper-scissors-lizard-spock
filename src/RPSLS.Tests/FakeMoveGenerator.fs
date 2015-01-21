@@ -1,21 +1,20 @@
-﻿module RandomMoveGenerator
+﻿module FakeMoveGenerator
 
 open IMoveGenerator
 open Move
 
-type RandomMoveGenerator() = 
+type FakeMoveGenerator(moves : List<Move>) = 
+    let mutable moveList = moves
+    
+    member this.MoveList 
+        with get () = moveList
+        and set (value) = (moveList <- value)
+
     member this.GenerateMove(n) = (this :> IMoveGenerator).GenerateMove(n)
+    
     interface IMoveGenerator with
         member this.GenerateMove(n) = 
-            let rnd = System.Random()
             let output = [ for i in 1 .. n -> 
-                let index = rnd.Next(0, 5)
-                match index with
-                | 0 -> Move.Rock
-                | 1 -> Move.Paper
-                | 2 -> Move.Scissors
-                | 3 -> Move.Lizard
-                | 4 -> Move.Spock
-                | _ -> failwith "Unexpected move"
+                moveList.Item(i-1)
             ]
             output

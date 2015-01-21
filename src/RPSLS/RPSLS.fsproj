@@ -50,9 +50,8 @@
     <Compile Include="Move.fs" />
     <Compile Include="IMoveGenerator.fs" />
     <Compile Include="Game.fs" />
-    <None Include="App.config" />
-    <Compile Include="Program.fs" />
     <Compile Include="RandomMoveGenerator.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
