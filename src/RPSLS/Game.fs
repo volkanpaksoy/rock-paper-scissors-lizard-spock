@@ -1,12 +1,12 @@
 ﻿module Game
 
+open System
 open Move
 open IMoveGenerator
 
 type RPSLS(userInput: string, moveGenerator: IMoveGenerator) = 
     let mutable playerScore = 0
     let mutable computerScore = 0
-    let moveGen = moveGenerator
 
     member this.GetMovesFromInput (input : string) =
         let inputList = Array.toList (input.Trim().Split [|' '|])
@@ -47,14 +47,14 @@ type RPSLS(userInput: string, moveGenerator: IMoveGenerator) =
 
     member this.RunGame() = 
         let n = this.PlayerMoves.Length
-        let ComputerMoves = moveGen.GenerateMove n
+        let ComputerMoves = moveGenerator.GenerateMove n
         for i in 0 .. n - 1 do
             printfn  "Player played %A" (this.PlayerMoves.Item(i))
             printfn  "Computer played %A" (ComputerMoves.Item(i))
             printfn  "Result: %s" (this.GetRoundOutputText (this.PlayerMoves.Item(i), ComputerMoves.Item(i)))
-            let diff = (int)(this.PlayerMoves.Item(i) - ComputerMoves.Item(i))
-            if diff = 1 then this.PlayerScore <- playerScore + 1
-            elif diff = 2 then this.ComputerScore <- computerScore + 1
+            let diff = (int) Math.Abs( (ComputerMoves.Item(i) - this.PlayerMoves.Item(i)) ) % 5
+            if diff = 3 || diff = 4 then this.PlayerScore <- playerScore + 1
+            elif diff = 1 || diff = 2 then this.ComputerScore <- computerScore + 1
             printfn "Player: %d \t Computer: %d" this.PlayerScore this.ComputerScore
             printfn ""
             

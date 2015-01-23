@@ -9,7 +9,7 @@ let main argv =
     try
         try
             let userInput = Console.ReadLine()
-            let newGame = new RPSLS(userInput, new RandomMoveGenerator())
+            let newGame = RPSLS(userInput, RandomMoveGenerator())
             newGame.RunGame()
         with
             _ -> printfn "An error occured"

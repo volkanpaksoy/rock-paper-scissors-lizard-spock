@@ -1,7 +1,8 @@
-﻿module RPSLS.Tests
+﻿module FakeMoveGeneratorTests
 
 open Xunit
 open FakeMoveGenerator
+open Move
 
 [<Fact>]
 let FakeMoveGenerator_Returns_The_Given_Move_List() = 

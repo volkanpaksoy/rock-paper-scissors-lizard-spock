@@ -3,6 +3,7 @@
 open Xunit
 open FakeMoveGenerator
 open Game
+open Move
 
 [<Fact>]
 let Game_Ends_With_Correct_Output_3_Moves_0_to_1() =
@@ -19,3 +20,12 @@ let Game_Ends_With_Correct_Output_1_Moves_0_to_0() =
     newGame.RunGame()
     Assert.Equal(0, newGame.PlayerScore)
     Assert.Equal(0, newGame.ComputerScore)
+
+[<Fact>]
+let Game_Ends_With_Correct_Output_3_Moves_3_to_0() =
+    let fakeGen = new FakeMoveGenerator([Move.Spock; Move.Lizard; Move.Paper])
+    let newGame = new RPSLS("p s s", fakeGen)
+    newGame.RunGame()
+    Assert.Equal(3, newGame.PlayerScore)
+    Assert.Equal(0, newGame.ComputerScore)
+

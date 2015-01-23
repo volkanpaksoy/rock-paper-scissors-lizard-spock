@@ -1,12 +1,16 @@
 ﻿module Move
 
 type Move = 
-    | Rock
-    | Paper
-    | Scissors
-    | Lizard
-    | Spock
+    | Rock = 0
+    | Spock = 1
+    | Paper = 2
+    | Lizard = 3
+    | Scissors = 4
 
+
+
+
+(*
     static member (-) (x, y) =
         match x, y with
         | Move.Scissors, Move.Paper -> 1
@@ -30,3 +34,4 @@ type Move =
         | Move.Rock, Move.Scissors -> 1
         | Move.Rock, Move.Lizard -> 1
         | (x, y) when (x = y) -> 0
+*)
