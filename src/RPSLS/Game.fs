@@ -35,11 +35,8 @@ type RPSLS(userInput: string, moveGenerator: IMoveGenerator) =
         | (x, y) when (x = y) -> "Draw"
         | (_, _) -> failwith "Unknown move pair"
 
-    member this.PlayerScore 
-        with get () = playerScore
-    
-    member this.ComputerScore 
-        with get () = computerScore
+    member this.PlayerScore = playerScore
+    member this.ComputerScore = computerScore
     
     member this.PlayerMoves = this.GetMovesFromInput(userInput)
 
@@ -50,7 +47,7 @@ type RPSLS(userInput: string, moveGenerator: IMoveGenerator) =
             printfn  "Player played %A" (this.PlayerMoves.Item(i))
             printfn  "Computer played %A" (ComputerMoves.Item(i))
             printfn  "Result: %s" (this.GetRoundOutputText (this.PlayerMoves.Item(i), ComputerMoves.Item(i)))
-            let diff = Math.Abs( (int)(ComputerMoves.Item(i) - this.PlayerMoves.Item(i)) % 5)
+            let diff = ((int)(this.PlayerMoves.Item(i) - ComputerMoves.Item(i)) + 5) % 5
             if diff = 3 || diff = 4 then computerScore <- computerScore + 1
             elif diff = 1 || diff = 2 then playerScore <- playerScore + 1
             printfn "Player: %d \t Computer: %d" this.PlayerScore this.ComputerScore
