@@ -51,7 +51,7 @@
     <Compile Include="FakeMoveGenerator.fs" />
     <Compile Include="FakeMoveGeneratorTests.fs" />
     <Compile Include="RPSLSTests.fs" />
-    <None Include="Script.fsx" />
+    <Compile Include="MoveTests.fs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
